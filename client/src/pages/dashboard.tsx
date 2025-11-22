@@ -1,15 +1,44 @@
+import { useQuery } from "@tanstack/react-query";
 import { DashboardStats } from "@/components/dashboard-stats";
 import { TopClasses } from "@/components/top-classes";
+import type { Class, Modality, Enrollment } from "@shared/schema";
+
+interface DashboardStatsData {
+  activeClients: number;
+  totalClients: number;
+  weeklyClasses: number;
+  occupancyRate: number;
+}
 
 export default function Dashboard() {
-  // TODO: remove mock functionality
-  const mockTopClasses = [
-    { name: "Spinning", enrolled: 28, capacity: 30 },
-    { name: "Yoga Flow", enrolled: 22, capacity: 25 },
-    { name: "Functional Training", enrolled: 18, capacity: 20 },
-    { name: "Pilates", enrolled: 15, capacity: 18 },
-    { name: "HIIT", enrolled: 24, capacity: 30 },
-  ];
+  const { data: stats } = useQuery<DashboardStatsData>({
+    queryKey: ["/api/dashboard/stats"],
+  });
+
+  const { data: classes = [] } = useQuery<Class[]>({
+    queryKey: ["/api/classes"],
+  });
+
+  const { data: modalities = [] } = useQuery<Modality[]>({
+    queryKey: ["/api/modalities"],
+  });
+
+  const { data: enrollments = [] } = useQuery<Enrollment[]>({
+    queryKey: ["/api/enrollments"],
+  });
+
+  const topClasses = classes
+    .map((classItem) => {
+      const modality = modalities.find((m) => m.id === classItem.modalityId);
+      const enrolled = enrollments.filter((e) => e.classId === classItem.id).length;
+      return {
+        name: modality?.name || "N/A",
+        enrolled,
+        capacity: classItem.capacity,
+      };
+    })
+    .sort((a, b) => b.enrolled - a.enrolled)
+    .slice(0, 5);
 
   return (
     <div className="space-y-8">
@@ -20,10 +49,14 @@ export default function Dashboard() {
         </p>
       </div>
 
-      <DashboardStats activeClients={142} occupancyRate={78} weeklyClasses={45} />
+      <DashboardStats
+        activeClients={stats?.activeClients || 0}
+        occupancyRate={stats?.occupancyRate || 0}
+        weeklyClasses={stats?.weeklyClasses || 0}
+      />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <TopClasses classes={mockTopClasses} />
+        <TopClasses classes={topClasses} />
         
         <div className="space-y-4">
           {/* Placeholder for future widgets */}

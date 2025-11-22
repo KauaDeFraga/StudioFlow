@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Search, Plus, Pencil } from "lucide-react";
+import { Search, Plus, Pencil, Loader2 } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -27,9 +27,10 @@ interface ClientListProps {
   clients: Client[];
   onAddClient?: () => void;
   onEditClient?: (id: string) => void;
+  isLoading?: boolean;
 }
 
-export function ClientList({ clients, onAddClient, onEditClient }: ClientListProps) {
+export function ClientList({ clients, onAddClient, onEditClient, isLoading = false }: ClientListProps) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredClients = clients.filter((client) =>
@@ -78,57 +79,71 @@ export function ClientList({ clients, onAddClient, onEditClient }: ClientListPro
         </Button>
       </div>
 
-      <Card>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Cliente</TableHead>
-              <TableHead>Contato</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Data de Início</TableHead>
-              <TableHead className="text-right">Ações</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredClients.map((client) => (
-              <TableRow key={client.id} data-testid={`client-row-${client.id}`}>
-                <TableCell>
-                  <div className="flex items-center gap-3">
-                    <Avatar className="w-10 h-10">
-                      <AvatarFallback>{getInitials(client.name)}</AvatarFallback>
-                    </Avatar>
-                    <span className="font-medium">{client.name}</span>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div className="text-sm">
-                    <div>{client.email}</div>
-                    <div className="text-muted-foreground">{client.phone}</div>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <Badge variant="outline" className={getStatusColor(client.status)}>
-                    {client.status}
-                  </Badge>
-                </TableCell>
-                <TableCell className="text-sm text-muted-foreground">
-                  {new Date(client.startDate).toLocaleDateString()}
-                </TableCell>
-                <TableCell className="text-right">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => onEditClient?.(client.id)}
-                    data-testid={`button-edit-${client.id}`}
-                  >
-                    <Pencil className="w-4 h-4" />
-                  </Button>
-                </TableCell>
+      {isLoading ? (
+        <div className="flex items-center justify-center py-12">
+          <Loader2 className="w-8 h-8 animate-spin text-muted-foreground" />
+        </div>
+      ) : (
+        <Card>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Cliente</TableHead>
+                <TableHead>Contato</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Data de Início</TableHead>
+                <TableHead className="text-right">Ações</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Card>
+            </TableHeader>
+            <TableBody>
+              {filteredClients.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={5} className="text-center py-8 text-muted-foreground" data-testid="text-no-clients">
+                    Nenhum cliente encontrado
+                  </TableCell>
+                </TableRow>
+              ) : (
+                filteredClients.map((client) => (
+                  <TableRow key={client.id} data-testid={`client-row-${client.id}`}>
+                    <TableCell>
+                      <div className="flex items-center gap-3">
+                        <Avatar className="w-10 h-10">
+                          <AvatarFallback>{getInitials(client.name)}</AvatarFallback>
+                        </Avatar>
+                        <span className="font-medium">{client.name}</span>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="text-sm">
+                        <div>{client.email}</div>
+                        <div className="text-muted-foreground">{client.phone}</div>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant="outline" className={getStatusColor(client.status)}>
+                        {client.status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-sm text-muted-foreground">
+                      {new Date(client.startDate).toLocaleDateString()}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => onEditClient?.(client.id)}
+                        data-testid={`button-edit-${client.id}`}
+                      >
+                        <Pencil className="w-4 h-4" />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </Card>
+      )}
     </div>
   );
 }

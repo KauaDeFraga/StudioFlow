@@ -1,21 +1,83 @@
+import { useState } from "react";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { ScheduleGrid } from "@/components/schedule-grid";
+import { AddClassDialog } from "@/components/add-class-dialog";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest, queryClient } from "@/lib/queryClient";
+import type { Class, Modality, Instructor, Enrollment, InsertClass } from "@shared/schema";
+
+interface ScheduleClass {
+  id: string;
+  modality: string;
+  instructor: string;
+  time: string;
+  day: number;
+  enrolled: number;
+  capacity: number;
+}
 
 export default function Schedule() {
-  // TODO: remove mock functionality
-  const mockClasses = [
-    { id: "1", modality: "Spinning", instructor: "Carlos M.", time: "07:00", day: 0, enrolled: 28, capacity: 30 },
-    { id: "2", modality: "Yoga", instructor: "Ana P.", time: "08:00", day: 0, enrolled: 15, capacity: 20 },
-    { id: "3", modality: "HIIT", instructor: "João S.", time: "18:00", day: 0, enrolled: 25, capacity: 25 },
-    { id: "4", modality: "Pilates", instructor: "Maria L.", time: "09:00", day: 1, enrolled: 12, capacity: 15 },
-    { id: "5", modality: "Functional", instructor: "Pedro R.", time: "19:00", day: 1, enrolled: 18, capacity: 20 },
-    { id: "6", modality: "Spinning", instructor: "Carlos M.", time: "07:00", day: 2, enrolled: 27, capacity: 30 },
-    { id: "7", modality: "Yoga Flow", instructor: "Ana P.", time: "10:00", day: 2, enrolled: 20, capacity: 25 },
-    { id: "8", modality: "HIIT", instructor: "João S.", time: "18:00", day: 3, enrolled: 22, capacity: 25 },
-    { id: "9", modality: "Pilates", instructor: "Maria L.", time: "08:00", day: 3, enrolled: 14, capacity: 15 },
-    { id: "10", modality: "Functional", instructor: "Pedro R.", time: "19:00", day: 4, enrolled: 19, capacity: 20 },
-    { id: "11", modality: "Spinning", instructor: "Carlos M.", time: "09:00", day: 5, enrolled: 24, capacity: 30 },
-    { id: "12", modality: "Yoga", instructor: "Ana P.", time: "10:00", day: 5, enrolled: 18, capacity: 20 },
-  ];
+  const { toast } = useToast();
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const { data: classes = [] } = useQuery<Class[]>({
+    queryKey: ["/api/classes"],
+  });
+
+  const { data: modalities = [] } = useQuery<Modality[]>({
+    queryKey: ["/api/modalities"],
+  });
+
+  const { data: instructors = [] } = useQuery<Instructor[]>({
+    queryKey: ["/api/instructors"],
+  });
+
+  const { data: enrollmentsData = [] } = useQuery<Enrollment[]>({
+    queryKey: ["/api/enrollments"],
+  });
+
+  const createMutation = useMutation({
+    mutationFn: (data: InsertClass) => apiRequest("/api/classes", "POST", data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/classes"] });
+      setDialogOpen(false);
+      toast({
+        title: "Aula criada",
+        description: "A aula foi adicionada à grade com sucesso!",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Erro",
+        description: "Não foi possível criar a aula.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleAddClass = () => {
+    setDialogOpen(true);
+  };
+
+  const handleSave = (classData: any) => {
+    createMutation.mutate(classData);
+  };
+
+  const scheduleClasses: ScheduleClass[] = classes.map((classItem) => {
+    const modality = modalities.find((m) => m.id === classItem.modalityId);
+    const instructor = instructors.find((i) => i.id === classItem.instructorId);
+    const enrolled = enrollmentsData.filter((e) => e.classId === classItem.id).length;
+
+    return {
+      id: classItem.id,
+      modality: modality?.name || "N/A",
+      instructor: instructor?.name || "N/A",
+      time: classItem.time,
+      day: classItem.dayOfWeek,
+      enrolled,
+      capacity: classItem.capacity,
+    };
+  });
 
   return (
     <div className="space-y-6">
@@ -27,9 +89,18 @@ export default function Schedule() {
       </div>
 
       <ScheduleGrid
-        classes={mockClasses}
-        onAddClass={() => console.log("Add class clicked")}
+        classes={scheduleClasses}
+        onAddClass={handleAddClass}
         onClassClick={(id) => console.log("Class clicked:", id)}
+      />
+
+      <AddClassDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        onSave={handleSave}
+        modalities={modalities}
+        instructors={instructors}
+        isPending={createMutation.isPending}
       />
     </div>
   );

@@ -13,7 +13,7 @@ interface Instructor {
 
 interface InstructorCardProps {
   instructor: Instructor;
-  onEdit?: (id: string) => void;
+  onEdit?: (instructor: Instructor) => void;
   onDelete?: (id: string) => void;
 }
 
@@ -43,7 +43,7 @@ export function InstructorCard({ instructor, onEdit, onDelete }: InstructorCardP
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => onEdit?.(instructor.id)}
+            onClick={() => onEdit?.(instructor)}
             data-testid={`button-edit-${instructor.id}`}
           >
             <Pencil className="w-4 h-4" />

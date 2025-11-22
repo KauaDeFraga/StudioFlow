@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Loader2 } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -17,14 +18,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import type { Client } from "@shared/schema";
 
 interface AddClientDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSave?: (client: any) => void;
+  editingClient?: Client | null;
+  isPending?: boolean;
 }
 
-export function AddClientDialog({ open, onOpenChange, onSave }: AddClientDialogProps) {
+export function AddClientDialog({ open, onOpenChange, onSave, editingClient, isPending = false }: AddClientDialogProps) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -33,24 +37,50 @@ export function AddClientDialog({ open, onOpenChange, onSave }: AddClientDialogP
     startDate: new Date().toISOString().split('T')[0],
   });
 
+  useEffect(() => {
+    if (editingClient) {
+      setFormData({
+        name: editingClient.name,
+        email: editingClient.email,
+        phone: editingClient.phone,
+        status: editingClient.status,
+        startDate: editingClient.startDate instanceof Date
+          ? editingClient.startDate.toISOString().split('T')[0]
+          : new Date(editingClient.startDate).toISOString().split('T')[0],
+      });
+    } else {
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        status: "ativo",
+        startDate: new Date().toISOString().split('T')[0],
+      });
+    }
+  }, [editingClient, open]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSave?.(formData);
-    onOpenChange(false);
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      status: "ativo",
-      startDate: new Date().toISOString().split('T')[0],
-    });
+    if (!isPending) {
+      onOpenChange(false);
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        status: "ativo",
+        startDate: new Date().toISOString().split('T')[0],
+      });
+    }
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle className="text-lg font-semibold">Adicionar Novo Cliente</DialogTitle>
+          <DialogTitle className="text-lg font-semibold">
+            {editingClient ? "Editar Cliente" : "Adicionar Novo Cliente"}
+          </DialogTitle>
           <DialogDescription>Digite as informações do cliente abaixo.</DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
@@ -119,11 +149,18 @@ export function AddClientDialog({ open, onOpenChange, onSave }: AddClientDialogP
             </div>
           </div>
           <DialogFooter className="gap-2">
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)} data-testid="button-cancel">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => onOpenChange(false)}
+              disabled={isPending}
+              data-testid="button-cancel"
+            >
               Cancelar
             </Button>
-            <Button type="submit" data-testid="button-save-client">
-              Salvar Cliente
+            <Button type="submit" disabled={isPending} data-testid="button-save-client">
+              {isPending && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+              {editingClient ? "Atualizar" : "Salvar"} Cliente
             </Button>
           </DialogFooter>
         </form>

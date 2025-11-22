@@ -1,53 +1,104 @@
 import { useState } from "react";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { ClientList } from "@/components/client-list";
 import { AddClientDialog } from "@/components/add-client-dialog";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest, queryClient } from "@/lib/queryClient";
+import type { Client, InsertClient } from "@shared/schema";
+
+interface ClientFormData {
+  name: string;
+  email: string;
+  phone: string;
+  status: string;
+  startDate: string;
+}
 
 export default function Clients() {
+  const { toast } = useToast();
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [editingClient, setEditingClient] = useState<Client | null>(null);
 
-  // TODO: remove mock functionality
-  const mockClients = [
-    {
-      id: "1",
-      name: "Maria Silva",
-      email: "maria.silva@email.com",
-      phone: "+55 11 98765-4321",
-      status: "ativo" as const,
-      startDate: "2024-01-15",
+  const { data: clients = [], isLoading } = useQuery<Client[]>({
+    queryKey: ["/api/clients"],
+  });
+
+  const createMutation = useMutation({
+    mutationFn: (data: InsertClient) => apiRequest("/api/clients", "POST", data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/clients"] });
+      toast({
+        title: "Cliente criado",
+        description: "O cliente foi criado com sucesso!",
+      });
     },
-    {
-      id: "2",
-      name: "João Santos",
-      email: "joao.santos@email.com",
-      phone: "+55 11 91234-5678",
-      status: "ativo" as const,
-      startDate: "2024-02-20",
+    onError: () => {
+      toast({
+        title: "Erro",
+        description: "Não foi possível criar o cliente.",
+        variant: "destructive",
+      });
     },
-    {
-      id: "3",
-      name: "Ana Costa",
-      email: "ana.costa@email.com",
-      phone: "+55 11 99876-5432",
-      status: "devedor" as const,
-      startDate: "2023-11-10",
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: ({ id, data }: { id: string; data: Partial<InsertClient> }) =>
+      apiRequest(`/api/clients/${id}`, "PUT", data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/clients"] });
+      toast({
+        title: "Cliente atualizado",
+        description: "O cliente foi atualizado com sucesso!",
+      });
     },
-    {
-      id: "4",
-      name: "Pedro Oliveira",
-      email: "pedro.oliveira@email.com",
-      phone: "+55 11 97654-3210",
-      status: "inativo" as const,
-      startDate: "2023-08-05",
+    onError: () => {
+      toast({
+        title: "Erro",
+        description: "Não foi possível atualizar o cliente.",
+        variant: "destructive",
+      });
     },
-    {
-      id: "5",
-      name: "Laura Mendes",
-      email: "laura.mendes@email.com",
-      phone: "+55 11 99123-4567",
-      status: "ativo" as const,
-      startDate: "2024-03-12",
-    },
-  ];
+  });
+
+  const handleAddClient = () => {
+    setEditingClient(null);
+    setDialogOpen(true);
+  };
+
+  const handleEditClient = (id: string) => {
+    const client = clients.find(c => c.id === id);
+    if (client) {
+      setEditingClient(client);
+      setDialogOpen(true);
+    }
+  };
+
+  const handleSave = (formData: ClientFormData) => {
+    const clientData: InsertClient = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      status: formData.status,
+      startDate: new Date(formData.startDate + 'T00:00:00.000Z'),
+    };
+
+    if (editingClient) {
+      updateMutation.mutate({ id: editingClient.id, data: clientData });
+    } else {
+      createMutation.mutate(clientData);
+    }
+  };
+
+  const clientsWithFormattedDates = clients.map(client => {
+    const date = client.startDate instanceof Date 
+      ? client.startDate
+      : new Date(client.startDate);
+    
+    return {
+      ...client,
+      startDate: date.toISOString().split('T')[0],
+    };
+  });
 
   return (
     <div className="space-y-6">
@@ -59,15 +110,18 @@ export default function Clients() {
       </div>
 
       <ClientList
-        clients={mockClients}
-        onAddClient={() => setDialogOpen(true)}
-        onEditClient={(id) => console.log("Edit client:", id)}
+        clients={clientsWithFormattedDates}
+        onAddClient={handleAddClient}
+        onEditClient={handleEditClient}
+        isLoading={isLoading}
       />
 
       <AddClientDialog
         open={dialogOpen}
         onOpenChange={setDialogOpen}
-        onSave={(client) => console.log("Client saved:", client)}
+        onSave={handleSave}
+        editingClient={editingClient}
+        isPending={createMutation.isPending || updateMutation.isPending}
       />
     </div>
   );
