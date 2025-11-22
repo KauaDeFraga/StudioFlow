@@ -12,7 +12,7 @@ export default function Clients() {
       name: "Maria Silva",
       email: "maria.silva@email.com",
       phone: "+55 11 98765-4321",
-      status: "active" as const,
+      status: "ativo" as const,
       startDate: "2024-01-15",
     },
     {
@@ -20,7 +20,7 @@ export default function Clients() {
       name: "João Santos",
       email: "joao.santos@email.com",
       phone: "+55 11 91234-5678",
-      status: "active" as const,
+      status: "ativo" as const,
       startDate: "2024-02-20",
     },
     {
@@ -28,7 +28,7 @@ export default function Clients() {
       name: "Ana Costa",
       email: "ana.costa@email.com",
       phone: "+55 11 99876-5432",
-      status: "debtor" as const,
+      status: "devedor" as const,
       startDate: "2023-11-10",
     },
     {
@@ -36,7 +36,7 @@ export default function Clients() {
       name: "Pedro Oliveira",
       email: "pedro.oliveira@email.com",
       phone: "+55 11 97654-3210",
-      status: "inactive" as const,
+      status: "inativo" as const,
       startDate: "2023-08-05",
     },
     {
@@ -44,7 +44,7 @@ export default function Clients() {
       name: "Laura Mendes",
       email: "laura.mendes@email.com",
       phone: "+55 11 99123-4567",
-      status: "active" as const,
+      status: "ativo" as const,
       startDate: "2024-03-12",
     },
   ];
@@ -52,9 +52,9 @@ export default function Clients() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold">Clients</h1>
+        <h1 className="text-2xl font-semibold">Clientes</h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Manage your studio members
+          Gerencie os membros do seu estúdio
         </p>
       </div>
 

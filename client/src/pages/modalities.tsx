@@ -16,37 +16,37 @@ export default function Modalities() {
     {
       id: "1",
       name: "Spinning",
-      description: "High-intensity cycling workout",
+      description: "Treino de ciclismo de alta intensidade",
       instructorCount: 2,
     },
     {
       id: "2",
       name: "Yoga",
-      description: "Mind-body practice for flexibility and balance",
+      description: "Prática corpo-mente para flexibilidade",
       instructorCount: 2,
     },
     {
       id: "3",
       name: "HIIT",
-      description: "High-Intensity Interval Training",
+      description: "Treinamento intervalado de alta intensidade",
       instructorCount: 2,
     },
     {
       id: "4",
       name: "Pilates",
-      description: "Low-impact exercises for core strength",
+      description: "Exercícios de baixo impacto para core",
       instructorCount: 2,
     },
     {
       id: "5",
-      name: "Functional Training",
-      description: "Exercises that train muscles for daily activities",
+      name: "Funcional",
+      description: "Exercícios para atividades do dia a dia",
       instructorCount: 2,
     },
     {
       id: "6",
       name: "Yoga Flow",
-      description: "Dynamic yoga sequences",
+      description: "Sequências dinâmicas de yoga",
       instructorCount: 1,
     },
   ];
@@ -55,14 +55,14 @@ export default function Modalities() {
     <div className="space-y-6">
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>
-          <h1 className="text-2xl font-semibold">Modalities</h1>
+          <h1 className="text-2xl font-semibold">Modalidades</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Manage class types offered at your studio
+            Gerencie os tipos de aula oferecidos no seu estúdio
           </p>
         </div>
         <Button data-testid="button-add-modality">
           <Plus className="w-4 h-4 mr-2" />
-          Add Modality
+          Adicionar Modalidade
         </Button>
       </div>
 
@@ -104,7 +104,7 @@ export default function Modalities() {
             </CardHeader>
             <CardContent>
               <Badge variant="secondary">
-                {modality.instructorCount} {modality.instructorCount === 1 ? 'instructor' : 'instructors'}
+                {modality.instructorCount} {modality.instructorCount === 1 ? 'instrutor' : 'instrutores'}
               </Badge>
             </CardContent>
           </Card>

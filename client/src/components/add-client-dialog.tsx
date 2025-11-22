@@ -29,7 +29,7 @@ export function AddClientDialog({ open, onOpenChange, onSave }: AddClientDialogP
     name: "",
     email: "",
     phone: "",
-    status: "active",
+    status: "ativo",
     startDate: new Date().toISOString().split('T')[0],
   });
 
@@ -41,7 +41,7 @@ export function AddClientDialog({ open, onOpenChange, onSave }: AddClientDialogP
       name: "",
       email: "",
       phone: "",
-      status: "active",
+      status: "ativo",
       startDate: new Date().toISOString().split('T')[0],
     });
   };
@@ -50,13 +50,13 @@ export function AddClientDialog({ open, onOpenChange, onSave }: AddClientDialogP
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle className="text-lg font-semibold">Add New Client</DialogTitle>
-          <DialogDescription>Enter the client's information below.</DialogDescription>
+          <DialogTitle className="text-lg font-semibold">Adicionar Novo Cliente</DialogTitle>
+          <DialogDescription>Digite as informações do cliente abaixo.</DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Full Name *</Label>
+              <Label htmlFor="name">Nome Completo *</Label>
               <Input
                 id="name"
                 value={formData.name}
@@ -67,7 +67,7 @@ export function AddClientDialog({ open, onOpenChange, onSave }: AddClientDialogP
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="email">Email *</Label>
+                <Label htmlFor="email">E-mail *</Label>
                 <Input
                   id="email"
                   type="email"
@@ -78,7 +78,7 @@ export function AddClientDialog({ open, onOpenChange, onSave }: AddClientDialogP
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="phone">Phone *</Label>
+                <Label htmlFor="phone">Telefone *</Label>
                 <Input
                   id="phone"
                   type="tel"
@@ -100,14 +100,14 @@ export function AddClientDialog({ open, onOpenChange, onSave }: AddClientDialogP
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="active">Active</SelectItem>
-                    <SelectItem value="inactive">Inactive</SelectItem>
-                    <SelectItem value="debtor">Debtor</SelectItem>
+                    <SelectItem value="ativo">Ativo</SelectItem>
+                    <SelectItem value="inativo">Inativo</SelectItem>
+                    <SelectItem value="devedor">Devedor</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="startDate">Start Date</Label>
+                <Label htmlFor="startDate">Data de Início</Label>
                 <Input
                   id="startDate"
                   type="date"
@@ -120,10 +120,10 @@ export function AddClientDialog({ open, onOpenChange, onSave }: AddClientDialogP
           </div>
           <DialogFooter className="gap-2">
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)} data-testid="button-cancel">
-              Cancel
+              Cancelar
             </Button>
             <Button type="submit" data-testid="button-save-client">
-              Save Client
+              Salvar Cliente
             </Button>
           </DialogFooter>
         </form>

@@ -19,22 +19,22 @@ const menuItems = [
     icon: Home,
   },
   {
-    title: "Clients",
+    title: "Clientes",
     url: "/clients",
     icon: Users,
   },
   {
-    title: "Schedule",
+    title: "Agenda",
     url: "/schedule",
     icon: Calendar,
   },
   {
-    title: "Instructors",
+    title: "Instrutores",
     url: "/instructors",
     icon: UserCircle,
   },
   {
-    title: "Modalities",
+    title: "Modalidades",
     url: "/modalities",
     icon: Grid3x3,
   },
@@ -60,7 +60,7 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-white/70 text-xs font-semibold uppercase tracking-wider">Navigation</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-white/70 text-xs font-semibold uppercase tracking-wider">Navegação</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (

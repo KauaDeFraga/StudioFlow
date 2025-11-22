@@ -7,7 +7,7 @@ export default function ClientListExample() {
       name: "Maria Silva",
       email: "maria.silva@email.com",
       phone: "+55 11 98765-4321",
-      status: "active" as const,
+      status: "ativo" as const,
       startDate: "2024-01-15",
     },
     {
@@ -15,7 +15,7 @@ export default function ClientListExample() {
       name: "João Santos",
       email: "joao.santos@email.com",
       phone: "+55 11 91234-5678",
-      status: "active" as const,
+      status: "ativo" as const,
       startDate: "2024-02-20",
     },
     {
@@ -23,7 +23,7 @@ export default function ClientListExample() {
       name: "Ana Costa",
       email: "ana.costa@email.com",
       phone: "+55 11 99876-5432",
-      status: "debtor" as const,
+      status: "devedor" as const,
       startDate: "2023-11-10",
     },
     {
@@ -31,7 +31,7 @@ export default function ClientListExample() {
       name: "Pedro Oliveira",
       email: "pedro.oliveira@email.com",
       phone: "+55 11 97654-3210",
-      status: "inactive" as const,
+      status: "inativo" as const,
       startDate: "2023-08-05",
     },
   ];

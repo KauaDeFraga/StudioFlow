@@ -16,7 +16,7 @@ export default function Dashboard() {
       <div>
         <h1 className="text-2xl font-semibold">Dashboard</h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Overview of your studio's performance
+          Visão geral do desempenho do seu estúdio
         </p>
       </div>
 

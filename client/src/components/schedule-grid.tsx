@@ -20,7 +20,7 @@ interface ScheduleGridProps {
   onClassClick?: (classId: string) => void;
 }
 
-const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+const daysOfWeek = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"];
 const timeSlots = ["06:00", "07:00", "08:00", "09:00", "10:00", "17:00", "18:00", "19:00", "20:00"];
 
 export function ScheduleGrid({ classes, onAddClass, onClassClick }: ScheduleGridProps) {
@@ -45,7 +45,7 @@ export function ScheduleGrid({ classes, onAddClass, onClassClick }: ScheduleGrid
             <ChevronLeft className="w-4 h-4" />
           </Button>
           <h2 className="text-lg font-semibold">
-            Week of {currentWeek.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+            Semana de {currentWeek.toLocaleDateString('pt-BR', { month: 'long', day: 'numeric', year: 'numeric' })}
           </h2>
           <Button variant="outline" size="icon" data-testid="button-next-week">
             <ChevronRight className="w-4 h-4" />
@@ -53,19 +53,19 @@ export function ScheduleGrid({ classes, onAddClass, onClassClick }: ScheduleGrid
         </div>
         <Button onClick={onAddClass} data-testid="button-add-class">
           <Plus className="w-4 h-4 mr-2" />
-          Add Class
+          Adicionar Aula
         </Button>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg font-semibold">Weekly Schedule</CardTitle>
+          <CardTitle className="text-lg font-semibold">Grade Semanal</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
             <div className="min-w-max">
               <div className="grid grid-cols-8 gap-2">
-                <div className="text-xs font-semibold text-muted-foreground p-2">Time</div>
+                <div className="text-xs font-semibold text-muted-foreground p-2">Horário</div>
                 {daysOfWeek.map((day, index) => (
                   <div key={index} className="text-xs font-semibold text-muted-foreground p-2">
                     {day}

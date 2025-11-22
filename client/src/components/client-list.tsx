@@ -19,7 +19,7 @@ interface Client {
   name: string;
   email: string;
   phone: string;
-  status: "active" | "inactive" | "debtor";
+  status: "ativo" | "inativo" | "devedor";
   startDate: string;
 }
 
@@ -39,11 +39,11 @@ export function ClientList({ clients, onAddClient, onEditClient }: ClientListPro
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "active":
+      case "ativo":
         return "bg-emerald-500 text-white border-0";
-      case "inactive":
+      case "inativo":
         return "bg-slate-500 text-white border-0";
-      case "debtor":
+      case "devedor":
         return "bg-rose-500 text-white border-0";
       default:
         return "";
@@ -65,7 +65,7 @@ export function ClientList({ clients, onAddClient, onEditClient }: ClientListPro
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search clients..."
+            placeholder="Buscar clientes..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-10"
@@ -74,7 +74,7 @@ export function ClientList({ clients, onAddClient, onEditClient }: ClientListPro
         </div>
         <Button onClick={onAddClient} data-testid="button-add-client">
           <Plus className="w-4 h-4 mr-2" />
-          Add Client
+          Adicionar Cliente
         </Button>
       </div>
 
@@ -82,11 +82,11 @@ export function ClientList({ clients, onAddClient, onEditClient }: ClientListPro
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Client</TableHead>
-              <TableHead>Contact</TableHead>
+              <TableHead>Cliente</TableHead>
+              <TableHead>Contato</TableHead>
               <TableHead>Status</TableHead>
-              <TableHead>Start Date</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+              <TableHead>Data de Início</TableHead>
+              <TableHead className="text-right">Ações</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

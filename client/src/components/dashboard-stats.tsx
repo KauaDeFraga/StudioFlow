@@ -44,22 +44,22 @@ export function DashboardStats({ activeClients, occupancyRate, weeklyClasses }: 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <StatCard
-        title="Active Clients"
+        title="Clientes Ativos"
         value={activeClients}
         icon={<Users className="w-5 h-5" />}
-        description="Currently enrolled"
+        description="Matriculados atualmente"
       />
       <StatCard
-        title="Occupancy Rate"
+        title="Taxa de Ocupação"
         value={`${occupancyRate}%`}
         icon={<TrendingUp className="w-5 h-5" />}
-        description="Average weekly"
+        description="Média semanal"
       />
       <StatCard
-        title="Weekly Classes"
+        title="Aulas Semanais"
         value={weeklyClasses}
         icon={<Calendar className="w-5 h-5" />}
-        description="Scheduled this week"
+        description="Agendadas esta semana"
       />
     </div>
   );

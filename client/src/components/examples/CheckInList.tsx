@@ -5,7 +5,7 @@ export default function CheckInListExample() {
     modality: "Spinning",
     instructor: "Carlos Mendes",
     time: "07:00",
-    date: "Nov 22, 2025",
+    date: "22 de Nov, 2025",
   };
 
   const mockStudents = [

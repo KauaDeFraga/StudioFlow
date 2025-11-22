@@ -14,7 +14,7 @@ export default function CheckIn() {
     modality: "Spinning",
     instructor: "Carlos Mendes",
     time: "07:00",
-    date: "Nov 22, 2025",
+    date: "22 de Nov, 2025",
   };
 
   const mockStudents = [
@@ -33,13 +33,13 @@ export default function CheckIn() {
       <div>
         <h1 className="text-2xl font-semibold">Check-In</h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Mark attendance for today's classes
+          Marque presença nas aulas de hoje
         </p>
       </div>
 
       <div className="max-w-xs">
         <Label htmlFor="class-select" className="text-sm font-medium mb-2 block">
-          Select Class
+          Selecione a Aula
         </Label>
         <Select defaultValue="1">
           <SelectTrigger id="class-select" data-testid="select-class">

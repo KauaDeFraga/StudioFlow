@@ -78,16 +78,16 @@ export function CheckInList({ classInfo, students, onCheckIn, onCheckAll, onUnch
           </div>
           <div className="flex items-center gap-2">
             <Badge variant="outline" className="text-sm">
-              {checkedInCount}/{totalCount} checked in
+              {checkedInCount}/{totalCount} presentes
             </Badge>
           </div>
         </div>
         <div className="flex gap-2 mt-4">
           <Button variant="outline" size="sm" onClick={handleCheckAll} data-testid="button-check-all">
-            Check All
+            Marcar Todos
           </Button>
           <Button variant="outline" size="sm" onClick={handleUncheckAll} data-testid="button-uncheck-all">
-            Uncheck All
+            Desmarcar Todos
           </Button>
         </div>
       </CardHeader>
@@ -111,13 +111,13 @@ export function CheckInList({ classInfo, students, onCheckIn, onCheckAll, onUnch
                 <div>
                   <p className="font-medium">{student.name}</p>
                   {student.checkedIn && student.checkInTime && (
-                    <p className="text-xs text-muted-foreground">Checked in at {student.checkInTime}</p>
+                    <p className="text-xs text-muted-foreground">Presente às {student.checkInTime}</p>
                   )}
                 </div>
               </div>
               {student.checkedIn && (
                 <Badge variant="outline" className="bg-emerald-500 text-white border-0">
-                  Present
+                  Presente
                 </Badge>
               )}
             </div>

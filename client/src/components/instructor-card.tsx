@@ -60,7 +60,7 @@ export function InstructorCard({ instructor, onEdit, onDelete }: InstructorCardP
       </CardHeader>
       <CardContent>
         <div className="space-y-2">
-          <p className="text-sm font-medium">Modalities</p>
+          <p className="text-sm font-medium">Modalidades</p>
           <div className="flex flex-wrap gap-2">
             {instructor.modalities.map((modality, index) => (
               <Badge key={index} variant="secondary">
