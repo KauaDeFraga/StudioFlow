@@ -1,4 +1,4 @@
-import { Home, Users, Calendar, UserCircle, Grid3x3, CheckCircle } from "lucide-react";
+import { Home, Users, Calendar, UserCircle, Grid3x3, CheckCircle, Dumbbell } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import {
   Sidebar,
@@ -49,18 +49,20 @@ export function AppSidebar() {
   const [location] = useLocation();
 
   return (
-    <Sidebar className="bg-gradient-to-b from-purple-600 to-purple-800 dark:from-purple-800 dark:to-purple-950">
-      <SidebarHeader className="p-6 border-b border-white/10">
-        <h1 className="text-xl font-bold text-white flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-400 to-purple-400 flex items-center justify-center text-white font-bold">
-            SF
+    <Sidebar>
+      <SidebarHeader className="p-6 border-b">
+        <h1 className="text-xl font-bold flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+            <Dumbbell className="w-6 h-6 text-primary-foreground" strokeWidth={2.5} />
           </div>
-          StudioFlow
+          <span className="bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+            StudioFlow
+          </span>
         </h1>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-white/70 text-xs font-semibold uppercase tracking-wider">Navegação</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-xs font-semibold uppercase tracking-wider">Navegação</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (

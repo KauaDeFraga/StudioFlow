@@ -9,27 +9,16 @@ interface StatCardProps {
 }
 
 function StatCard({ title, value, icon, description }: StatCardProps) {
-  const gradients = [
-    "bg-gradient-to-br from-purple-500 to-purple-700",
-    "bg-gradient-to-br from-cyan-500 to-cyan-700",
-    "bg-gradient-to-br from-pink-500 to-pink-700",
-  ];
-  
-  const gradient = title === "Active Clients" ? gradients[0] : 
-                   title === "Occupancy Rate" ? gradients[1] : gradients[2];
-
   return (
-    <Card className="overflow-hidden border-0 shadow-lg">
-      <div className={`${gradient} p-6 text-white`}>
-        <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 p-0 pb-3">
-          <CardTitle className="text-sm font-semibold text-white/90">{title}</CardTitle>
-          <div className="bg-white/20 p-2 rounded-lg">{icon}</div>
-        </CardHeader>
-        <CardContent className="p-0">
-          <div className="text-4xl font-bold" data-testid={`stat-${title.toLowerCase().replace(/\s+/g, '-')}`}>{value}</div>
-          {description && <p className="text-sm text-white/80 mt-2">{description}</p>}
-        </CardContent>
-      </div>
+    <Card className="overflow-hidden">
+      <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-3">
+        <CardTitle className="text-sm font-semibold text-muted-foreground">{title}</CardTitle>
+        <div className="bg-primary/10 p-2 rounded-lg text-primary">{icon}</div>
+      </CardHeader>
+      <CardContent>
+        <div className="text-4xl font-bold" data-testid={`stat-${title.toLowerCase().replace(/\s+/g, '-')}`}>{value}</div>
+        {description && <p className="text-sm text-muted-foreground mt-2">{description}</p>}
+      </CardContent>
     </Card>
   );
 }

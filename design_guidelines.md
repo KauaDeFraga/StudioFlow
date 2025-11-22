@@ -2,15 +2,20 @@
 
 ## Design Approach
 
-**Selected Approach:** Design System + SaaS Reference Hybrid
+**Selected Approach:** Minimalist Monochrome with Energetic Accent
 
-This is a utility-focused, information-dense B2B SaaS application. The design will draw from modern SaaS products like Linear, Asana, and Notion for their clean, efficient interfaces while maintaining strict adherence to data-heavy enterprise UI patterns.
+This is a modern, professional fitness studio management platform. The design uses a sophisticated monochromatic grayscale palette with a vibrant green accent representing energy, growth, and health - core values of fitness studios.
 
 **Key Design Principles:**
-1. Information clarity over visual flair
-2. Efficient workflows with minimal clicks
-3. Scannable data presentation
-4. Consistent, predictable patterns
+1. Clean, professional monochrome interface
+2. Strategic use of green accent for energy and calls-to-action  
+3. Information clarity with strong visual hierarchy
+4. Minimalist, distraction-free workflows
+
+**Color Philosophy:**
+- **Monochrome Base:** Pure blacks, grays, and whites create a professional, timeless foundation
+- **Green Accent:** Vibrant emerald green (#22c55e) represents fitness, energy, and progress
+- **No Gradients:** Except for the subtle text gradient in the logo for brand identity
 
 ---
 

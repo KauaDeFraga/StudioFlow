@@ -41,7 +41,7 @@ function App() {
           <div className="flex h-screen w-full">
             <AppSidebar />
             <div className="flex flex-col flex-1">
-              <header className="flex items-center justify-between p-4 border-b border-border bg-gradient-to-r from-purple-50 to-cyan-50 dark:from-purple-950/30 dark:to-cyan-950/30">
+              <header className="flex items-center justify-between p-4 border-b bg-card/50 backdrop-blur-sm">
                 <SidebarTrigger data-testid="button-sidebar-toggle" />
                 <ThemeToggle />
               </header>

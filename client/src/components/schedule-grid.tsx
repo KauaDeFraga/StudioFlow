@@ -32,9 +32,9 @@ export function ScheduleGrid({ classes, onAddClass, onClassClick }: ScheduleGrid
 
   const getCapacityColor = (enrolled: number, capacity: number) => {
     const percentage = (enrolled / capacity) * 100;
-    if (percentage >= 90) return "bg-rose-500 text-white border-0";
-    if (percentage >= 70) return "bg-amber-500 text-white border-0";
-    return "bg-emerald-500 text-white border-0";
+    if (percentage >= 90) return "bg-destructive text-destructive-foreground border-0";
+    if (percentage >= 70) return "bg-secondary text-secondary-foreground border-0";
+    return "bg-primary text-primary-foreground border-0";
   };
 
   return (
@@ -84,12 +84,12 @@ export function ScheduleGrid({ classes, onAddClass, onClassClick }: ScheduleGrid
                           {classItem ? (
                             <Button
                               variant="outline"
-                              className="w-full h-auto p-3 flex flex-col items-start gap-1 hover-elevate bg-gradient-to-br from-purple-50 to-cyan-50 dark:from-purple-900/20 dark:to-cyan-900/20 border-purple-200 dark:border-purple-700"
+                              className="w-full h-auto p-3 flex flex-col items-start gap-1 hover-elevate bg-muted/50"
                               onClick={() => onClassClick?.(classItem.id)}
                               data-testid={`class-${classItem.id}`}
                             >
-                              <div className="font-semibold text-sm text-purple-900 dark:text-purple-100">{classItem.modality}</div>
-                              <div className="text-xs text-purple-700 dark:text-purple-300">{classItem.instructor}</div>
+                              <div className="font-semibold text-sm">{classItem.modality}</div>
+                              <div className="text-xs text-muted-foreground">{classItem.instructor}</div>
                               <Badge
                                 variant="outline"
                                 className={`text-xs ${getCapacityColor(classItem.enrolled, classItem.capacity)}`}
