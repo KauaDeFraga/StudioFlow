@@ -1,0 +1,73 @@
+•	Descrição da Aplicação
+   O domínio desta aplicação é o de software de gestão (SaaS - Software as a Service) focado nas operações internas de negócios do setor fitness, como academias, estúdios de ioga ou pilates. O projeto "StudioFlow" concentra-se no desenvolvimento do Painel Administrativo, a ferramenta central que resolve o desafio da gestão manual de clientes e agendamentos. A proposta é substituir o uso de planilhas, agendas de papel e trocas de mensagens por uma plataforma web única, que centraliza as informações, otimiza o tempo dos gestores e reduz a chance de erros operacionais, como agendamentos duplicados.
+As funcionalidades do Painel Administrativo serão o coração do sistema:
+•	Gestão de Clientes (CRM): Um sistema para cadastrar e gerenciar todos os alunos. Incluirá informações de contato, data de início, status do plano (ativo, inativo, devedor) e um histórico de todas as aulas frequentadas.
+•	Cadastro de Modalidades e Instrutores: O gestor poderá criar as diferentes aulas que a academia oferece (ex: "Spinning", "Funcional") e cadastrar os instrutores, associando-os às modalidades que lecionam.
+•	Grade de Horários Visual: Uma interface de calendário interativa onde o gestor poderá montar a agenda semanal, alocando as aulas nos dias e horários, definindo a capacidade máxima de alunos e o instrutor responsável por cada sessão.
+•	Agendamento Manual de Alunos: Esta é a funcionalidade chave. O gestor poderá selecionar um horário na grade, visualizar as vagas disponíveis e inscrever um cliente registrado naquela aula com poucos cliques.
+•	Controle de Presença Digital (Check-in): Para cada aula agendada, o sistema exibirá a lista de alunos inscritos. O gestor ou instrutor poderá marcar a presença de cada um, gerando um registro de frequência preciso e digital.
+•	Dashboard de Métricas Simples: Uma página inicial que exibirá informações rápidas e úteis, como o número de alunos ativos, as aulas mais cheias da semana e a taxa de ocupação geral.
+
+•	Desenvolvimento 
+
+    A arquitetura tecnológica será focada na construção de uma aplicação web robusta e escalável. O Frontend será desenvolvido em React.js, ideal para criar um dashboard rico em funcionalidades, com componentes interativos como o calendário e as listas de gestão. O Backend, construído com Node.js e Express.js, formará a espinha dorsal do sistema, fornecendo uma API RESTful segura para manipular todos os dados e regras de negócio. O banco de dados escolhido será o PostgreSQL, garantindo a integridade e a segurança dos dados relacionais da operação.
+
+1 - Requisitos Funcionais 
+•	RF01: O sistema deve permitir o cadastro de novos clientes, armazenando no mínimo: informações de contato, data de início e status do plano.
+•	RF02: O sistema deve permitir a visualização e edição dos dados de clientes já cadastrados.
+•	RF03: O sistema deve permitir que o gestor altere o status de um cliente (ex: ativo, inativo, devedor).
+•	RF04: O sistema deve registrar e exibir um histórico detalhado de todas as aulas que um cliente frequentou.
+•	RF05: O sistema deve permitir o cadastro de novas modalidades de aulas (ex: Spinning, Funcional, Yoga).
+•	RF06: O sistema deve permitir o cadastro de novos instrutores.
+•	RF07: O sistema deve permitir associar um instrutor a uma ou mais modalidades que ele está apto a lecionar.
+•	RF08: O sistema deve exibir uma grade de horários visual em formato de calendário semanal.
+•	RF09: O sistema deve permitir ao gestor criar, editar e excluir aulas na grade de horários.
+•	RF10: Ao criar uma aula na grade, o sistema deve exigir que o gestor defina a modalidade, o instrutor responsável e a capacidade máxima de alunos.
+•	RF11: O sistema deve permitir que o gestor selecione uma aula na grade para visualizar as vagas disponíveis e a lista de alunos já inscritos.
+•	RF12: O sistema deve permitir que o gestor inscreva manualmente um cliente cadastrado em uma aula, desde que haja vagas disponíveis.
+•	RF13: O sistema deve impedir a inscrição de um cliente em uma aula que já atingiu sua capacidade máxima.
+•	RF14: Para cada aula, o sistema deve fornecer uma interface para realizar o controle de presença (check-in) dos alunos inscritos.
+•	RF15: O sistema deve permitir marcar a presença de um aluno em uma aula específica.
+•	RF16: O sistema deve apresentar um Dashboard como página inicial ao gestor.
+•	RF17: O Dashboard deve exibir o número total de alunos com status "ativo".
+•	RF18: O Dashboard deve exibir um ranking ou lista das aulas com maior número de alunos na semana.
+•	RF19: O Dashboard deve exibir uma métrica da taxa de ocupação geral das aulas.
+2 - Requisitos Não Funcionais
+Estes são os requisitos que definem as características de qualidade, restrições tecnológicas e de ambiente nas quais o sistema irá operar.
+•	RNF01: A aplicação deve ser uma plataforma web, acessível por meio de navegadores de internet.
+•	RNF02: A interface do cliente deve ser desenvolvida utilizando a biblioteca React.js.
+•	RNF03: A lógica do servidor deve ser desenvolvida utilizando Node.js com o framework Express.js.
+•	RNF04: O sistema deve utilizar PostgreSQL como banco de dados para armazenamento e gerenciamento das informações.
+•	RNF05: A comunicação entre o Frontend e o Backend deve ser realizada através de uma API RESTful.
+•	RNF06: A arquitetura do sistema deve ser escalável, suportando o aumento futuro no número de clientes e agendamentos sem perda significativa de desempenho.
+•	RNF07: O sistema deve ser seguro, protegendo os dados dos clientes e do negócio contra acessos não autorizados.
+•	RNF08: A interface do usuário deve ser intuitiva e responsiva, proporcionando uma boa experiência de uso em diferentes tamanhos de tela (desktops).
+•	RNF09: O sistema deve ser confiável, garantindo a integridade dos dados e prevenindo erros como agendamentos duplicados ou perda de informações de check-in.
+•	RNF10: O tempo de resposta para operações comuns, como carregar a grade de horários e realizar um agendamento, deve ser rápido para não comprometer a produtividade do gestor.
+Atores:
+•	Gestor: O principal usuário do Painel Administrativo, responsável pela gestão completa do negócio.
+•	Instrutor: O profissional que ministra as aulas e pode auxiliar no controle de presença.
+
+Especificação dos Casos de Uso:
+
+•	UC01: Gerenciar Clientes
+•	Descrição: Este caso de uso permite ao Gestor executar todas as operações de gerenciamento de clientes. Ele pode cadastrar um novo aluno (RF01), buscar, visualizar e editar as informações de um aluno existente (RF02) e alterar seu status (ativo, inativo, devedor) (RF03). O sistema também exibirá o histórico de aulas frequentadas pelo cliente (RF04).
+
+•	UC02: Gerenciar Modalidades
+•	Descrição: O Gestor utiliza esta função para cadastrar, editar e remover as modalidades de aulas oferecidas pelo estabelecimento (ex: Spinning, Funcional, Yoga), conforme o requisito RF05.
+
+•	UC03: Gerenciar Instrutores
+•	Descrição: Permite ao Gestor cadastrar os dados dos instrutores (RF06). Além disso, o sistema possibilita associar cada instrutor às modalidades que ele está qualificado para lecionar (RF07).
+
+•	UC04: Gerenciar Grade de Horários
+•	Descrição: O Gestor pode montar a agenda de aulas do estúdio. Ele visualiza a grade em um formato de calendário semanal (RF08) e pode criar, editar ou excluir aulas (RF09). Ao configurar uma aula, é obrigatório definir a modalidade, o instrutor e a capacidade máxima de alunos (RF10).
+
+•	UC05: Realizar Agendamento de Aluno
+•	Descrição: Esta funcionalidade permite ao Gestor inscrever manualmente um cliente em uma aula específica. Ele seleciona um horário na grade, visualiza as vagas disponíveis e a lista de inscritos (RF11) e, então, inscreve o cliente desejado, desde que a aula não esteja lotada (RF12, RF13).
+
+
+•	UC06: Realizar Check-in de Aluno
+•	Descrição: Tanto o Gestor quanto o Instrutor podem acessar a lista de alunos inscritos em uma aula e marcar a presença de cada um (RF14, RF15). Isso gera um registro digital de frequência.
+
+•	UC07: Visualizar Dashboard
+•	Descrição: Ao acessar o sistema, o Gestor é apresentado a um painel de controle (RF16) com métricas importantes, como o número de alunos ativos (RF17), as aulas mais populares da semana (RF18) e a taxa de ocupação geral (RF19).
