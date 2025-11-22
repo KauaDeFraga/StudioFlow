@@ -67,8 +67,17 @@ export default function Modalities() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {mockModalities.map((modality) => (
-          <Card key={modality.id} data-testid={`modality-card-${modality.id}`}>
+        {mockModalities.map((modality, index) => {
+          const gradients = [
+            "border-l-purple-500 bg-gradient-to-br from-purple-50 to-transparent dark:from-purple-900/20",
+            "border-l-cyan-500 bg-gradient-to-br from-cyan-50 to-transparent dark:from-cyan-900/20",
+            "border-l-pink-500 bg-gradient-to-br from-pink-50 to-transparent dark:from-pink-900/20",
+            "border-l-amber-500 bg-gradient-to-br from-amber-50 to-transparent dark:from-amber-900/20",
+            "border-l-emerald-500 bg-gradient-to-br from-emerald-50 to-transparent dark:from-emerald-900/20",
+            "border-l-rose-500 bg-gradient-to-br from-rose-50 to-transparent dark:from-rose-900/20",
+          ];
+          return (
+          <Card key={modality.id} data-testid={`modality-card-${modality.id}`} className={`border-l-4 ${gradients[index % gradients.length]}`}>
             <CardHeader className="flex flex-row items-start justify-between gap-2 space-y-0 pb-3">
               <div>
                 <h3 className="font-semibold">{modality.name}</h3>
@@ -99,7 +108,8 @@ export default function Modalities() {
               </Badge>
             </CardContent>
           </Card>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

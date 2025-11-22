@@ -116,7 +116,7 @@ export function CheckInList({ classInfo, students, onCheckIn, onCheckAll, onUnch
                 </div>
               </div>
               {student.checkedIn && (
-                <Badge variant="outline" className="bg-green-500/10 text-green-700 dark:text-green-400 border-green-500/20">
+                <Badge variant="outline" className="bg-emerald-500 text-white border-0">
                   Present
                 </Badge>
               )}

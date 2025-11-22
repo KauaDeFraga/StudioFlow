@@ -40,11 +40,11 @@ export function ClientList({ clients, onAddClient, onEditClient }: ClientListPro
   const getStatusColor = (status: string) => {
     switch (status) {
       case "active":
-        return "bg-green-500/10 text-green-700 dark:text-green-400 border-green-500/20";
+        return "bg-emerald-500 text-white border-0";
       case "inactive":
-        return "bg-gray-500/10 text-gray-700 dark:text-gray-400 border-gray-500/20";
+        return "bg-slate-500 text-white border-0";
       case "debtor":
-        return "bg-red-500/10 text-red-700 dark:text-red-400 border-red-500/20";
+        return "bg-rose-500 text-white border-0";
       default:
         return "";
     }

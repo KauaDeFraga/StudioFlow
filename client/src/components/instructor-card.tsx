@@ -28,11 +28,11 @@ export function InstructorCard({ instructor, onEdit, onDelete }: InstructorCardP
   };
 
   return (
-    <Card data-testid={`instructor-card-${instructor.id}`}>
+    <Card data-testid={`instructor-card-${instructor.id}`} className="border-l-4 border-l-purple-500">
       <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-3">
         <div className="flex items-center gap-3">
-          <Avatar className="w-12 h-12">
-            <AvatarFallback>{getInitials(instructor.name)}</AvatarFallback>
+          <Avatar className="w-12 h-12 bg-gradient-to-br from-purple-500 to-cyan-500">
+            <AvatarFallback className="bg-transparent text-white font-bold">{getInitials(instructor.name)}</AvatarFallback>
           </Avatar>
           <div>
             <h3 className="font-semibold">{instructor.name}</h3>
