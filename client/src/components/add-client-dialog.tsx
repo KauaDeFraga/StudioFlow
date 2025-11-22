@@ -62,16 +62,6 @@ export function AddClientDialog({ open, onOpenChange, onSave, editingClient, isP
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSave?.(formData);
-    if (!isPending) {
-      onOpenChange(false);
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        status: "ativo",
-        startDate: new Date().toISOString().split('T')[0],
-      });
-    }
   };
 
   return (

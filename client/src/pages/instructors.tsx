@@ -12,7 +12,10 @@ import { Plus, Loader2 } from "lucide-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import type { Instructor, InsertInstructor, Modality } from "@shared/schema";
 
-interface InstructorWithModalities extends Instructor {
+interface InstructorWithModalities {
+  id: string;
+  name: string;
+  email: string;
   modalities: string[];
 }
 
@@ -37,9 +40,10 @@ export default function Instructors() {
 
   const createMutation = useMutation({
     mutationFn: async ({ data, modalityIds }: { data: InsertInstructor; modalityIds: string[] }) => {
-      const instructor = await apiRequest("/api/instructors", "POST", data);
+      const response = await apiRequest("POST", "/api/instructors", data);
+      const instructor = await response.json();
       for (const modalityId of modalityIds) {
-        await apiRequest("/api/instructor-modalities", "POST", {
+        await apiRequest("POST", "/api/instructor-modalities", {
           instructorId: instructor.id,
           modalityId,
         });
@@ -73,20 +77,21 @@ export default function Instructors() {
       modalityIds: string[];
       currentModalityIds: string[];
     }) => {
-      const instructor = await apiRequest(`/api/instructors/${id}`, "PUT", data);
+      const response = await apiRequest("PUT", `/api/instructors/${id}`, data);
+      const instructor = await response.json();
       
       const toAdd = modalityIds.filter(modalityId => !currentModalityIds.includes(modalityId));
       const toRemove = currentModalityIds.filter(modalityId => !modalityIds.includes(modalityId));
       
       for (const modalityId of toAdd) {
-        await apiRequest("/api/instructor-modalities", "POST", {
+        await apiRequest("POST", "/api/instructor-modalities", {
           instructorId: id,
           modalityId,
         });
       }
       
       for (const modalityId of toRemove) {
-        await apiRequest("/api/instructor-modalities", "DELETE", {
+        await apiRequest("DELETE", "/api/instructor-modalities", {
           instructorId: id,
           modalityId,
         });
@@ -116,7 +121,7 @@ export default function Instructors() {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id: string) => apiRequest(`/api/instructors/${id}`, "DELETE"),
+    mutationFn: (id: string) => apiRequest("DELETE", `/api/instructors/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/instructors"] });
       queryClient.invalidateQueries({ queryKey: ["/api/instructors-modalities-map"] });

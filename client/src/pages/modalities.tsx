@@ -23,7 +23,7 @@ export default function Modalities() {
   });
 
   const createMutation = useMutation({
-    mutationFn: (data: InsertModality) => apiRequest("/api/modalities", "POST", data),
+    mutationFn: (data: InsertModality) => apiRequest("POST", "/api/modalities", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/modalities"] });
       setIsDialogOpen(false);
@@ -44,7 +44,7 @@ export default function Modalities() {
 
   const updateMutation = useMutation({
     mutationFn: ({ id, data }: { id: string; data: Partial<InsertModality> }) =>
-      apiRequest(`/api/modalities/${id}`, "PUT", data),
+      apiRequest("PUT", `/api/modalities/${id}`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/modalities"] });
       setIsDialogOpen(false);
@@ -65,7 +65,7 @@ export default function Modalities() {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id: string) => apiRequest(`/api/modalities/${id}`, "DELETE"),
+    mutationFn: (id: string) => apiRequest("DELETE", `/api/modalities/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/modalities"] });
       toast({

@@ -24,9 +24,11 @@ export default function Clients() {
   });
 
   const createMutation = useMutation({
-    mutationFn: (data: InsertClient) => apiRequest("/api/clients", "POST", data),
+    mutationFn: (data: InsertClient) => apiRequest("POST", "/api/clients", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/clients"] });
+      setDialogOpen(false);
+      setEditingClient(null);
       toast({
         title: "Cliente criado",
         description: "O cliente foi criado com sucesso!",
@@ -43,9 +45,11 @@ export default function Clients() {
 
   const updateMutation = useMutation({
     mutationFn: ({ id, data }: { id: string; data: Partial<InsertClient> }) =>
-      apiRequest(`/api/clients/${id}`, "PUT", data),
+      apiRequest("PUT", `/api/clients/${id}`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/clients"] });
+      setDialogOpen(false);
+      setEditingClient(null);
       toast({
         title: "Cliente atualizado",
         description: "O cliente foi atualizado com sucesso!",

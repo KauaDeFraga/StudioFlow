@@ -37,7 +37,7 @@ export default function Schedule() {
   });
 
   const createMutation = useMutation({
-    mutationFn: (data: InsertClass) => apiRequest("/api/classes", "POST", data),
+    mutationFn: (data: InsertClass) => apiRequest("POST", "/api/classes", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/classes"] });
       setDialogOpen(false);
