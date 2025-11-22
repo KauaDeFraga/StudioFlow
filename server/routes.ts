@@ -196,7 +196,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const client = await storage.createClient(data);
       res.status(201).json(client);
     } catch (error) {
-      res.status(400).json({ error: "Invalid data" });
+      console.error("Error creating client:", error);
+      res.status(400).json({ error: "Invalid data", details: error instanceof Error ? error.message : String(error) });
     }
   });
 

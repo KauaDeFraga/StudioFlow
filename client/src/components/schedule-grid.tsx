@@ -72,9 +72,9 @@ export function ScheduleGrid({ classes, onAddClass, onClassClick }: ScheduleGrid
                   </div>
                 ))}
                 
-                {timeSlots.map((time) => (
-                  <>
-                    <div key={`time-${time}`} className="text-xs text-muted-foreground p-2 flex items-center">
+                {timeSlots.map((time, timeIndex) => (
+                  <div key={`row-${timeIndex}`} className="contents">
+                    <div className="text-xs text-muted-foreground p-2 flex items-center">
                       {time}
                     </div>
                     {daysOfWeek.map((_, dayIndex) => {
@@ -103,7 +103,7 @@ export function ScheduleGrid({ classes, onAddClass, onClassClick }: ScheduleGrid
                         </div>
                       );
                     })}
-                  </>
+                  </div>
                 ))}
               </div>
             </div>

@@ -97,7 +97,7 @@ export default function Clients() {
     return {
       ...client,
       startDate: date.toISOString().split('T')[0],
-    };
+    } as Client & { startDate: string };
   });
 
   return (
@@ -110,7 +110,7 @@ export default function Clients() {
       </div>
 
       <ClientList
-        clients={clientsWithFormattedDates}
+        clients={clientsWithFormattedDates as any}
         onAddClient={handleAddClient}
         onEditClient={handleEditClient}
         isLoading={isLoading}

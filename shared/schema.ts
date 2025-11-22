@@ -88,6 +88,8 @@ export const insertClientSchema = createInsertSchema(clients).pick({
   phone: true,
   status: true,
   startDate: true,
+}).extend({
+  startDate: z.coerce.date(),
 });
 export const insertClassSchema = createInsertSchema(classes).pick({
   modalityId: true,
@@ -107,6 +109,9 @@ export const insertAttendanceSchema = createInsertSchema(attendances).pick({
   date: true,
   present: true,
   checkedInAt: true,
+}).extend({
+  date: z.coerce.date(),
+  checkedInAt: z.coerce.date().optional(),
 });
 
 export type User = typeof users.$inferSelect;
