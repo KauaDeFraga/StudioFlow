@@ -17,6 +17,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const modalities = await storage.getModalities();
       res.json(modalities);
     } catch (error) {
+      console.error("Error fetching modalities:", error);
       res.status(500).json({ error: "Failed to fetch modalities" });
     }
   });
@@ -229,6 +230,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const classes = await storage.getClasses();
       res.json(classes);
     } catch (error) {
+      console.error("Error fetching classes:", error);
       res.status(500).json({ error: "Failed to fetch classes" });
     }
   });
@@ -286,6 +288,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const enrollments = await storage.getEnrollments(classId);
       res.json(enrollments);
     } catch (error) {
+      console.error("Error fetching enrollments:", error);
       res.status(500).json({ error: "Failed to fetch enrollments" });
     }
   });
@@ -355,6 +358,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const stats = await storage.getDashboardStats();
       res.json(stats);
     } catch (error) {
+      console.error("Error fetching dashboard stats:", error);
       res.status(500).json({ error: "Failed to fetch dashboard stats" });
     }
   });

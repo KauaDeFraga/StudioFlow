@@ -1,5 +1,5 @@
-import { drizzle } from "drizzle-orm/neon-serverless";
-import { Pool } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
+import { neon } from "@neondatabase/serverless";
 import { eq, desc, sql } from "drizzle-orm";
 import {
   users,
@@ -82,8 +82,8 @@ export class DbStorage implements IStorage {
   private db: ReturnType<typeof drizzle>;
 
   constructor() {
-    const pool = new Pool({ connectionString: process.env.DATABASE_URL! });
-    this.db = drizzle(pool);
+    const sql = neon(process.env.DATABASE_URL!);
+    this.db = drizzle(sql);
   }
 
   async getUser(id: string): Promise<User | undefined> {

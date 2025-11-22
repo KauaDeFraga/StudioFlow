@@ -55,7 +55,7 @@ export function AppSidebar() {
           <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
             <Dumbbell className="w-6 h-6 text-primary-foreground" strokeWidth={2.5} />
           </div>
-          <span className="bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+          <span className="text-sidebar-foreground">
             StudioFlow
           </span>
         </h1>
